@@ -5,7 +5,6 @@ RUN apt-get update && \
     apt-get install -y \
     clang \
     git \
-    neovim \
     zsh \
     tmux \
     ripgrep \
@@ -13,6 +12,9 @@ RUN apt-get update && \
     sudo \
     yadm
 RUN apt-get clean
+
+ADD https://github.com/neovim/neovim/releases/download/v0.9.5/nvim-linux64.tar.gz /nvim-linux64.tar.gz
+RUN sudo tar -C /opt -xzf nvim-linux64.tar.gz && rm -rf /nvim-linux64.tar.gz
 
 # Set up default user for myself
 RUN useradd -mG sudo colbyhaskell

@@ -100,11 +100,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias vi="nvim"
 
 SPACESHIP_AZURE_SHOW=false
 SPACESHIP_NODE_SHOW=false
 
+export PATH="$PATH:/opt/nvim-linux64/bin"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
