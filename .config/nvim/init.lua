@@ -47,5 +47,7 @@ require("lazy").setup({
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' }
     },
-    { 'rafamadriz/friendly-snippets' }
+    { 'rafamadriz/friendly-snippets' },
+    { 'jose-elias-alvarez/null-ls.nvim' },
+    { 'MunifTanjim/prettier.nvim' },
 })
