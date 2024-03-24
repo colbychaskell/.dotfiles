@@ -1,8 +1,7 @@
 [core]
-	excludesfile = ~/.gitglobalignore
+	autocrlf = input
 	editor = nvim
-[checkout]
-    defaultRemote = origin
+	excludesfile = ~/.gitglobalignore
 [user]
 	name = Colby Haskell
 	email = chaskell35@gmail.com 
@@ -14,5 +13,3 @@
 	default = current
 [init]
 	defaultBranch = main
-[rerere]
-    enabled = true
