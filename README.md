@@ -4,7 +4,7 @@
 >
 > -- *Confucius*
 
-[Neovim Dashboard Screen](Screenshot.png)
+![Neovim Dashboard Screen](Screenshot.png)
 
 ## Notes
 
