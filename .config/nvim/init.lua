@@ -10,6 +10,10 @@ vim.g.have_nerd_font = true
 -- Enable relative linenumbers in netrw
 vim.g.netrw_bufsettings = "noma nomod nu rnu nobl nowrap ro"
 
+-- Turn on spell check
+vim.opt.spelllang = "en_us"
+vim.opt.spell = true
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
