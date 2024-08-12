@@ -1,129 +1,127 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# ~~~~~~~~~~~~~~~ Path configuration ~~~~~~~~~~~~~~~~~~~~~~~~
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+setopt extended_glob null_glob
 
-source ~/.bash_profile
-
-ZSH_TMUX_AUTOSTART=true
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="random"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    git
-    zsh-syntax-highlighting
-    zsh-autosuggestions
-    tmux
+path=(
+  $path             # Keep existing PATH entries
+  $HOME/.local/bin  # Add user-locally installed apps
+  $SCRIPTS          # Add user scripts
 )
 
-source $ZSH/oh-my-zsh.sh
+# Remove duplicate entries and non-existent directories
+typeset -U path
+path=($^path(N-/))
 
-# User configuration
+export PATH
 
-# export MANPATH="/usr/local/man:$MANPATH"
+# ~~~~~~~~~~~~~~~ SSH ~~~~~~~~~~~~~~~~~~~~~~~~
 
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
+# Give highest precedence to the SSH_AUTH_SOCK value, if it is set, to allow
+# ssh-agent forwarding from container hosts or SSH clients.
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# Start the SSH agent with a lifetime of 4 hours if not running already
+# From Arch wiki.
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
+  # If SSH agent socket does not exist, create one
+  if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent -t 4h > "$XDG_RUNTIME_DIR/ssh-agent.env"
+  fi
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+  # Set variables for newly created SSH agent
+  source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+fi
 
-SPACESHIP_AZURE_SHOW=false
-SPACESHIP_NODE_SHOW=false
+# ~~~~~~~~~~~~~~~ Environment Variables ~~~~~~~~~~~~~~~~~~~~~~~~
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Set to superior editing mode
+set -o vi
 
-# Initializer starship prompt
+export VISUAL=nvim
+export EDITOR=nvim
+
+# directories
+export REPOS="$HOME/Repos"
+export GHREPOS="$REPOS/github.com"
+export SCRIPTS="$HOME/.local/scripts"
+export ZETTELKASTEN="$HOME/Zettelkasten"
+
+# Paths used by Go
+export GOBIN="$HOME/.local/bin"
+export GOPRIVATE="*.gitlab.com/*"
+export GOPATH="$HOME/go/"
+
+# Set the root for a default vcpkg install
+export VCPKG_ROOT="$HOME/vcpkg"
+
+# Use Neovim to browse manual pages
+export MANPAGER='nvim +Man!'
+
+
+# ~~~~~~~~~~~~~~~ History ~~~~~~~~~~~~~~~~~~~~~~~~
+
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+
+setopt HIST_IGNORE_SPACE  # Don't save when prefixed with space
+setopt HIST_IGNORE_DUPS   # Don't save duplicate lines
+setopt SHARE_HISTORY      # Share history between sessions
+
+# ~~~~~~~~~~~~~~~ Prompt ~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Initialize Starship
 eval "$(starship init zsh)"
 
-# bun completions
-[ -s "/Users/colbyhaskell/.bun/_bun" ] && source "/Users/colbyhaskell/.bun/_bun"
+# ~~~~~~~~~~~~~~~ Aliases ~~~~~~~~~~~~~~~~~~~~~~~~
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+# Most used alias
+alias v=nvim
+
+alias scripts='cd $SCRIPTS'
+
+# Get local aliases if available
+if [ -f "$XDG_CONFIG_HOME/zsh/.zsh_aliases" ]; then
+  source "$XDG_CONFIG_HOME/zsh/.zsh_aliases" > /dev/null
+fi
+
+alias repos='cd $REPOS'
+alias ghrepos='cd $GHREPOS'
+alias dot='cd $GHREPOS/colbychaskell/dotfiles'
+
+# ls
+alias ls='ls --color=auto'
+alias la='ls -lathr'
+
+# finds all files recursively and sorts by last modification, ignore hidden files
+alias lastmod='find . -type f -not -path "*/\.*" -exec ls -lrt {} +'
+
+# Zettelkasten
+alias in="cd \$ZETTELKASTEN/0\ Inbox/"
+
+alias fgk='flux get kustomizations'
+
+# ~~~~~~~~~~~~~~~ Sourcing ~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Machine-specific zsh rc
+if [ -f "$HOME/.zsh_local" ]; then
+  source "$HOME/.zsh_local"
+fi
+
+# Setup fzf
+source <(fzf --zsh)
+
+
+# ~~~~~~~~~~~~~~~ Completion ~~~~~~~~~~~~~~~~~~~~~~~~
+
+fpath+=~/.zfunc
+
+# Add brew package completions if brew is installed
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+fi
+
+autoload -Uz compinit
+compinit -u
+
+zstyle ':completion:*' menu select
