@@ -11,8 +11,5 @@
 These are my personal dotfiles that serve as the baseline configuration for my
 development environment.
 
-In my daily work, I am forced to use a variety of machines and operating systems
-each with unique restrictions and requirements. My goal with these dotfiles is
-to create a configuration consisting of the minimum tools I need to work
-effectively. As each machine permits, I have added techniques to extend these
-configurations without disrupting my baseline configuration files.
+Currently, I primarily use the nix package manager with nix-darwin and home
+manager on Mac to track most of my system configuration.
