@@ -2,7 +2,7 @@
 size = 10
 
 [font.normal]
-family = "JetBrainsMono Nerd Font"
+family = "BlexMono Nerd Font"
 
 [window]
 decorations = "Buttonless"

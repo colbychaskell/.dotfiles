@@ -70,6 +70,9 @@ setopt SHARE_HISTORY      # Share history between sessions
 
 # ~~~~~~~~~~~~~~~ Prompt ~~~~~~~~~~~~~~~~~~~~~~~~
 
+# Set the configuration location
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
 # Initialize Starship
 eval "$(starship init zsh)"
 
@@ -77,6 +80,7 @@ eval "$(starship init zsh)"
 
 # Most used alias
 alias v=nvim
+alias t=tmux
 
 alias scripts='cd $SCRIPTS'
 
