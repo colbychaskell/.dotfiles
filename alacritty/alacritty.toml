@@ -5,10 +5,10 @@ size = 10
 family = "BlexMono Nerd Font"
 
 [window]
-decorations = "Buttonless"
+decorations = "Transparent"
 opacity = 0.8
 blur = true
 
 [window.padding]
 x = 7
-y = 0
+y = 12

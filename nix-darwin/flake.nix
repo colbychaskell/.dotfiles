@@ -29,6 +29,7 @@
       services.nix-daemon.enable = true;
 
       services.yabai.enable = true;
+      services.skhd.enable = true;
 
       # Necessary for using flakes on this system.
       nix.settings.experimental-features = "nix-command flakes";
