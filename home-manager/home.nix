@@ -17,6 +17,8 @@
   home.stateVersion = "24.05";
 
   home.packages = [
+    pkgs.fzf
+    pkgs.ripgrep
     pkgs.go
     pkgs.neovim
     pkgs.alacritty
