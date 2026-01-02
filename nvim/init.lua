@@ -10,9 +10,18 @@ vim.g.have_nerd_font = true
 -- Enable relative linenumbers in netrw
 vim.g.netrw_bufsettings = "noma nomod nu rnu nobl nowrap ro"
 
+-- Force OSC 52 clipboard
+vim.g.clipboard = "osc52"
+
+-- Setup yanking to system clipboard
+-- NOTE: Requires OSC52 ^^ and OSC52-supporting terminal emulator to work
+-- correctly over ssh
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+
 -- Turn on spell check
 vim.opt.spelllang = "en_us"
-vim.opt.spell = true
+vim.opt.spell = false
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -33,11 +42,6 @@ vim.opt.showmode = false
 
 -- Add a column at 80 characters
 vim.opt.colorcolumn = "79"
-
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
--- vim.opt.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -88,13 +92,6 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- Diagnostic keymaps
 vim.keymap.set(
   "n",
-  "[d",
-  vim.diagnostic.goto_prev,
-  { desc = "Go to previous [D]iagnostic message" }
-)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
-vim.keymap.set(
-  "n",
   "<leader>e",
   vim.diagnostic.open_float,
   { desc = "Show diagnostic [E]rror messages" }
@@ -131,12 +128,12 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open netrw" })
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
+--  See `:help vim.hl.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  group = vim.api.nvim_create_augroup("highlight-on-yank", { clear = true }),
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 
@@ -146,22 +143,17 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   command = [[%s/\s\+$//e]],
 })
 
--- Use ts_context_commentstring when commenting with native comments ('gc')
-local get_option = vim.filetype.get_option
-vim.filetype.get_option = function(filetype, option)
-  return option == "commentstring"
-      and require("ts_context_commentstring.internal").calculate_commentstring()
-    or get_option(filetype, option)
-end
-
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
   vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
+
+-- [[ Load custom config modules ]]
+require("custom.config")
 
 -- [[ Configure and install plugins ]]
 --
@@ -175,7 +167,6 @@ vim.opt.rtp:prepend(lazypath)
 --
 require("lazy").setup({
   { import = "custom.plugins" },
-  { import = "kickstart.plugins" },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the

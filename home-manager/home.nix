@@ -3,8 +3,8 @@
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "colbyhaskell";
-  home.homeDirectory = "/Users/colbyhaskell";
+  home.username = builtins.getEnv "USER";
+  home.homeDirectory = builtins.getEnv "HOME";
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
@@ -15,32 +15,19 @@
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = "24.05";
-
   home.packages = [
+    pkgs.tree-sitter
+    pkgs.curl
+    pkgs.neovim
+    pkgs.starship
+    pkgs.stow
     pkgs.fzf
     pkgs.ripgrep
-    pkgs.go
-    pkgs.neovim
-    pkgs.alacritty
-    pkgs.starship
+    pkgs.tmux
   ];
 
-  home.file = {
-    ".zshrc".source = ../zsh/.zshrc;
-    ".gitconfig".source = ../git/.gitconfig;
-    ".tmux.conf".source = ../tmux/.tmux.conf;
-    ".ssh/config".source = ../ssh/config;
-
-    ".config/nix".source = ../nix;
-    ".config/nix-darwin".source = ../nix-darwin;
-
-    ".config/alacritty".source = ../alacritty;
-    ".config/nvim".source = ../nvim;
-    ".config/starship".source = ../starship;
-    ".config/yabai".source = ../yabai;
-    ".config/skhd".source = ../skhd;
-
-  };
+  # Use stow to copy files instead of home-manager (leave this empty)
+  home.file = {};
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
