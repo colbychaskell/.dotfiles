@@ -24,6 +24,8 @@
     pkgs.fzf
     pkgs.ripgrep
     pkgs.tmux
+
+    pkgs.lazygit
   ];
 
   # Use stow to copy files instead of home-manager (leave this empty)
