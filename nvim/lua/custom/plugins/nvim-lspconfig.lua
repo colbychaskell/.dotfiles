@@ -29,12 +29,6 @@ return {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
     "folke/lazydev.nvim",
-    -- LSP for Brazil Config files
-    {
-      url = "ssh://git.amazon.com/pkg/VimBrazilConfig",
-      branch = "mainline",
-      ft = "brazil-config",
-    },
   },
   config = function()
     --  This function gets run when an LSP attaches to a particular buffer.
@@ -246,15 +240,5 @@ return {
     })
 
     vim.lsp.enable("kotlin_lsp")
-
-    -- Barium LSP for Brazil Config files
-    --   Must be installed with `toolbox install barium`
-    vim.lsp.config("barium", {
-      cmd = { "barium" },
-      filetypes = { "brazil-config" },
-      root_markers = { "Config" },
-      settings = {},
-    })
-    vim.lsp.enable("barium")
   end,
 }
