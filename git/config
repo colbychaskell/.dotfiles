@@ -4,7 +4,7 @@
 	excludesfile = ~/.gitglobalignore
 [user]
 	name = Colby Haskell
-	email = chaskell35@gmail.com 
+	email = chaskell35@gmail.com
 [color]
 	ui = auto
 [push]
