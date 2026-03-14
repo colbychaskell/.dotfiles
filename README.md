@@ -1,10 +1,5 @@
 # .dotfiles
 
-> “If a craftsman wants to do good work, he must first sharpen his tools.”
->
-> -- *Confucius*
-
-![Neovim Dashboard Screen](Screenshot.png)
 
 ## Notes
 
