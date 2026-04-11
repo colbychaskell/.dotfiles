@@ -2,7 +2,7 @@ return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
   opts = function()
-    local colors = require("tokyonight.colors").setup()
+    -- local colors = require("everforest.colors").setup()
     -- local copilot_colors = {
     --   [""] = { fg = colors.grey, bg = colors.none },
     --   ["Normal"] = { fg = colors.grey, bg = colors.none },
@@ -13,7 +13,7 @@ return {
       options = {
         component_separators = { left = " ", right = " " },
         section_separators = { left = " ", right = " " },
-        theme = "tokyonight",
+        theme = "everforest",
         globalstatus = true,
         disabled_filetypes = { statusline = { "dashboard", "alpha" } },
       },
@@ -49,7 +49,7 @@ return {
           {
             require("lazy.status").updates,
             cond = require("lazy.status").has_updates,
-            color = { fg = colors.green },
+            -- color = { fg = colors.green },
           },
           {
             function()
@@ -110,7 +110,7 @@ return {
           },
           {
             "location",
-            color = { fg = colors.cyan },
+            -- color = { fg = colors.cyan },
           },
         },
         lualine_z = {
