@@ -22,6 +22,7 @@
     ripgrep
     tmux
     lazygit
+    rustup
   ];
 
   home.file = {
@@ -59,6 +60,7 @@
     sessionVariables = {
       VISUAL = "nvim";
       EDITOR = "nvim";
+      SNACKS_TMUX = "true";
       REPOS = "$HOME/Repos";
       GHREPOS = "$HOME/Repos/github.com";
       SCRIPTS = "$HOME/.local/scripts";
@@ -125,7 +127,11 @@
         autoSetupRemote = true;
         default = "current";
       };
+      pull.rebase = true;
       init.defaultBranch = "main";
+      diff.tool = "nvimdiff";
+      difftool.prompt = false;
+      difftool."nvimdiff".cmd = ''nvim -d "$LOCAL" "$REMOTE"'';
     };
   };
 
