@@ -99,8 +99,8 @@
       fpath+=~/.zfunc
       zstyle ':completion:*' menu select
 
-      # tmux auto-launch
-      if [ -z "$TMUX" ]; then
+      # tmux auto-launch in SSH sessions only
+      if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ]; then
         tmux attach -t TMUX || tmux new -s TMUX
       fi
     '';

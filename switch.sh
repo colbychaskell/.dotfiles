@@ -12,4 +12,4 @@ case "$arch" in
   arm64) arch="aarch64" ;;
 esac
 
-home-manager switch --flake ".#${os}-${arch}@personal"
+nix run home-manager -- switch --flake ".#${os}-${arch}@personal"
