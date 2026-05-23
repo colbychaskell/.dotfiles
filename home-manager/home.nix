@@ -23,6 +23,13 @@
     tmux
     lazygit
     rustup
+    lua-language-server
+    stylua
+    pyright
+    clang-tools
+    marksman
+    markdownlint-cli
+    prettierd
   ];
 
   home.file = {
