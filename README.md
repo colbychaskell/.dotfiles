@@ -1,10 +1,20 @@
 # .dotfiles
 
+Personal dotfiles and home-manager configuration managed with Nix flakes.
 
-## Notes
+## Setup
 
-These are my personal dotfiles that serve as the baseline configuration for my
-development environment.
+1. [Install Nix](https://nixos.org/download/)
 
-Currently, I primarily use the nix package manager with nix-darwin and home
-manager on Mac to track most of my system configuration.
+2. Enable flakes:
+
+   ```sh
+   mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
+   ```
+
+3. Clone this repo
+4. Apply:
+
+```sh
+./switch.sh
+```

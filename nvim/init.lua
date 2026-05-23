@@ -155,6 +155,9 @@ vim.opt.rtp:prepend(lazypath)
 -- [[ Load custom config modules ]]
 require("custom.config")
 
+-- [[ Load extra config modules (provided by context-specific overlays) ]]
+pcall(require, "extra.config")
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
@@ -167,6 +170,7 @@ require("custom.config")
 --
 require("lazy").setup({
   { import = "custom.plugins" },
+  { import = "extra.plugins", optional = true },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the

@@ -1,4 +1,7 @@
-local bemol = require("custom.utils.bemol")
+local has_bemol, bemol = pcall(require, "extra.utils.bemol")
+if not has_bemol then
+  bemol = { lsp_config = function() end }
+end
 
 -- LSP Configuration & Plugins
 return {
