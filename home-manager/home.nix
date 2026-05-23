@@ -34,6 +34,14 @@
     ".config/starship/starship.toml".source = ../starship/starship.toml;
     ".config/tmux/tmux.conf".source = ../tmux/tmux.conf;
     ".ssh/config".source = ../ssh/config;
+    ".local/bin/tmux-sessionizer" = {
+      source = ../scripts/tmux-sessionizer;
+      executable = true;
+    };
+    ".local/bin/tmux-window-fzf" = {
+      source = ../scripts/tmux-window-fzf;
+      executable = true;
+    };
   };
 
   programs.zsh = {

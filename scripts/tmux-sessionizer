@@ -1,0 +1,50 @@
+#!/bin/bash
+# Tmux session manager — fzf-pick a project, create a session with per-subdir windows
+
+SEARCH_DIRS=(
+  "$HOME/Repos"
+)
+
+# Source local overrides (add to SEARCH_DIRS in this file)
+[[ -f "$HOME/.config/tmux-sessionizer/config" ]] && source "$HOME/.config/tmux-sessionizer/config"
+
+create_package_windows() {
+    local session_name=$1
+    local workspace_dir=$2
+    local src_dir="$workspace_dir/src"
+
+    [[ ! -d $src_dir ]] && return
+
+    local packages=$(find "$src_dir" -mindepth 1 -maxdepth 1 -type d)
+
+    for package in $packages; do
+        local package_name=$(basename "$package")
+        tmux new-window -t "$session_name:" -n "$package_name" -c "$package"
+    done
+
+    tmux select-window -t "$session_name:0"
+}
+
+if [[ $# -eq 1 ]]; then
+    selected=$1
+else
+    selected=$(find -L "${SEARCH_DIRS[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | fzf)
+fi
+
+[[ -z $selected ]] && exit 1
+
+selected_name=$(basename "$selected" | tr . _)
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    tmux new-session -s "$selected_name" -c "$selected"
+    create_package_windows "$selected_name" "$selected"
+    exit 0
+fi
+
+if ! tmux has-session -t="$selected_name" 2>/dev/null; then
+    tmux new-session -ds "$selected_name" -c "$selected"
+    create_package_windows "$selected_name" "$selected"
+fi
+
+tmux switch-client -t "$selected_name"

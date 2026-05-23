@@ -1,0 +1,12 @@
+#!/bin/bash
+# Quick-switch to any tmux window across all sessions via fzf
+
+if [[ $# -eq 1 ]]; then
+    selected=$1
+else
+    selected=$(tmux list-windows -aF '#{session_name}:#{window_index}:#{window_name}' | fzf --reverse --header 'Switch to window:')
+fi
+
+[[ -z $selected ]] && exit 1
+
+tmux select-window -t "$selected"
