@@ -30,6 +30,7 @@
     marksman
     markdownlint-cli
     prettierd
+    autossh
   ];
 
   home.file = {
