@@ -1,7 +1,7 @@
-{ ... }:
+{ lib, ... }:
 
 {
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = lib.mkAfter ''
     # SSH agent
     if [[ ! -f "$SSH_AUTH_SOCK" ]]; then
       if ! pgrep -u "$USER" ssh-agent > /dev/null; then

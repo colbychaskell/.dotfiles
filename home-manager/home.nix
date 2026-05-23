@@ -1,4 +1,4 @@
-{ config, pkgs, username, homeDirectory, ... }:
+{ config, pkgs, lib, username, homeDirectory, ... }:
 
 {
   home.username = username;
@@ -88,52 +88,54 @@
       MANPAGER = "nvim +Man!";
       STARSHIP_CONFIG = "~/.config/starship/starship.toml";
     };
-    initExtraFirst = ''
-      setopt extended_glob null_glob
+    initContent = lib.mkMerge [
+      (lib.mkBefore ''
+        setopt extended_glob null_glob
 
-      path=(
-        $path
-        $HOME/.local/bin
-        $SCRIPTS
-      )
+        path=(
+          $path
+          $HOME/.local/bin
+          $SCRIPTS
+        )
 
-      typeset -U path
-      path=($^path(N-/))
-      export PATH
-    '';
-    initExtra = ''
-      # Starship prompt
-      eval "$(starship init zsh)"
+        typeset -U path
+        path=($^path(N-/))
+        export PATH
+      '')
+      ''
+        # Starship prompt
+        eval "$(starship init zsh)"
 
-      # fzf
-      source <(fzf --zsh)
+        # fzf
+        source <(fzf --zsh)
 
-      # Local aliases
-      if [ -f "$XDG_CONFIG_HOME/zsh/.zsh_aliases" ]; then
-        source "$XDG_CONFIG_HOME/zsh/.zsh_aliases" > /dev/null
-      fi
+        # Local aliases
+        if [ -f "$XDG_CONFIG_HOME/zsh/.zsh_aliases" ]; then
+          source "$XDG_CONFIG_HOME/zsh/.zsh_aliases" > /dev/null
+        fi
 
-      # Completions
-      fpath+=~/.zfunc
-      zstyle ':completion:*' menu select
+        # Completions
+        fpath+=~/.zfunc
+        zstyle ':completion:*' menu select
 
-      # tmux auto-launch in SSH sessions only
-      if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ]; then
-        tmux attach -t TMUX || tmux new -s TMUX
-      fi
-    '';
+        # tmux auto-launch in SSH sessions only
+        if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ]; then
+          tmux attach -t TMUX || tmux new -s TMUX
+        fi
+      ''
+    ];
   };
 
   home.sessionVariables = { };
 
   programs.git = {
     enable = true;
-    userName = "Colby Haskell";
     ignores = [
       "*.swp"
       ".direnv/"
     ];
-    extraConfig = {
+    settings = {
+      user.name = "Colby Haskell";
       core = {
         autocrlf = "input";
         editor = "nvim";

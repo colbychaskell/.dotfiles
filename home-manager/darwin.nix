@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   home.file = {
     ".config/aerospace/aerospace.toml".source = ../aerospace/aerospace.toml;
   };
 
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = lib.mkAfter ''
     # Brew completions
     if type brew &>/dev/null; then
       FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
@@ -17,8 +17,6 @@
       ".DS_Store"
       "._*"
     ];
-    extraConfig = {
-      credential.helper = "osxkeychain";
-    };
+    settings.credential.helper = "osxkeychain";
   };
 }
