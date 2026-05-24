@@ -6,21 +6,25 @@ Personal dotfiles and home-manager configuration managed with Nix flakes.
 
 1. [Install Nix](https://nixos.org/download/)
 
-2. Enable flakes:
+2. Clone this repo to `~/.dotfiles`
+
+3. Apply:
 
    ```sh
-   mkdir -p ~/.config/nix && echo "experimental-features = nix-command flakes" > ~/.config/nix/nix.conf
+   make apply
    ```
 
-3. Clone this repo
-4. First-time apply (bootstraps home-manager):
+## Usage
 
 ```sh
-nix run home-manager -- switch --flake .#darwin-x86_64@personal
+make apply   # rebuild home-manager config
+make update  # update flake inputs
 ```
 
-After that, just use:
+## macOS Casks
+
+GUI apps are managed manually via Homebrew. Install them with:
 
 ```sh
-./switch.sh
+brew bundle --file=Brewfile
 ```
