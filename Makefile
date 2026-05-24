@@ -7,9 +7,16 @@ endif
 
 CONFIG := $(OS)-$(ARCH)@personal
 
+.PHONY: all
+all: apply brew
+
 .PHONY: apply
 apply:
 	nix run home-manager -- switch --flake ".#$(CONFIG)" -b backup
+
+.PHONY: brew
+brew:
+	brew bundle --file=Brewfile
 
 .PHONY: update
 update:
