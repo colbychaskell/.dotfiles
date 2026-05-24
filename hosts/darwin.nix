@@ -1,14 +1,16 @@
 { pkgs, lib, ... }:
 
 {
+  imports = [
+    ../home/aerospace
+  ];
+
   home.packages = with pkgs; [
     nerd-fonts.blex-mono
     nerd-fonts.jetbrains-mono
   ];
 
-  home.file = {
-    ".config/aerospace/aerospace.toml".source = ../config/aerospace/aerospace.toml;
-  };
+  home.sessionPath = [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ];
 
   programs.zsh.initContent = lib.mkAfter ''
     # Brew completions

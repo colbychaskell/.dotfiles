@@ -16,10 +16,10 @@
     in
     {
       homeManagerModules = {
-        default = ./profiles/base.nix;
-        darwin = ./profiles/darwin.nix;
-        linux = ./profiles/linux.nix;
-        personal = ./profiles/personal.nix;
+        default = ./hosts/base.nix;
+        darwin = ./hosts/darwin.nix;
+        linux = ./hosts/linux.nix;
+        personal = ./hosts/personal.nix;
       };
 
       homeConfigurations = {
@@ -29,9 +29,24 @@
             config.allowUnfree = true;
           };
           modules = [
-            ./profiles/base.nix
-            ./profiles/darwin.nix
-            ./profiles/personal.nix
+            ./hosts/base.nix
+            ./hosts/darwin.nix
+            ./hosts/personal.nix
+          ];
+          extraSpecialArgs = {
+            inherit username;
+            homeDirectory = "/Users/${username}";
+          };
+        };
+        "darwin-aarch64@personal" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "aarch64-darwin";
+            config.allowUnfree = true;
+          };
+          modules = [
+            ./hosts/base.nix
+            ./hosts/darwin.nix
+            ./hosts/personal.nix
           ];
           extraSpecialArgs = {
             inherit username;
