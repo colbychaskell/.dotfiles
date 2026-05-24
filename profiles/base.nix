@@ -24,6 +24,10 @@
     markdownlint-cli
     prettierd
     autossh
+    fd
+    pandoc
+    zig
+    cargo-lambda
   ];
 
   home.file = {
