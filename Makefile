@@ -16,7 +16,7 @@ apply:
 
 .PHONY: brew
 brew:
-	brew bundle --file=Brewfile
+	brew bundle --file=$(HOME)/.config/brew/Brewfile
 
 .PHONY: update
 update:

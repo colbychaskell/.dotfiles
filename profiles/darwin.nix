@@ -8,6 +8,7 @@
 
   home.file = {
     ".config/aerospace/aerospace.toml".source = ../config/aerospace/aerospace.toml;
+    ".config/brew/Brewfile".source = ../Brewfile;
   };
 
   programs.zsh.initContent = lib.mkAfter ''
