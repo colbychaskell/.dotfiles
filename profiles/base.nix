@@ -4,14 +4,7 @@
   home.username = username;
   home.homeDirectory = homeDirectory;
 
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "24.05"; # Please read the comment before changing.
+  home.stateVersion = "24.05";
 
   home.packages = with pkgs; [
     tree-sitter
@@ -35,19 +28,19 @@
 
   home.file = {
     ".config/nvim" = {
-      source = ../nvim;
+      source = ../config/nvim;
       recursive = true;
     };
-    ".config/ghostty".source = ../ghostty;
-    ".config/starship/starship.toml".source = ../starship/starship.toml;
-    ".config/tmux/tmux.conf".source = ../tmux/tmux.conf;
-    ".ssh/config".source = ../ssh/config;
+    ".config/ghostty".source = ../config/ghostty;
+    ".config/starship/starship.toml".source = ../config/starship/starship.toml;
+    ".config/tmux/tmux.conf".source = ../config/tmux/tmux.conf;
+    ".ssh/config".source = ../config/ssh/config;
     ".local/bin/tmux-sessionizer" = {
-      source = ../scripts/tmux-sessionizer;
+      source = ../config/scripts/tmux-sessionizer;
       executable = true;
     };
     ".local/bin/tmux-window-fzf" = {
-      source = ../scripts/tmux-window-fzf;
+      source = ../config/scripts/tmux-window-fzf;
       executable = true;
     };
   };
@@ -133,6 +126,7 @@
     ignores = [
       "*.swp"
       ".direnv/"
+      ".envrc"
     ];
     settings = {
       user.name = "Colby Haskell";

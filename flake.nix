@@ -16,10 +16,10 @@
     in
     {
       homeManagerModules = {
-        default = ./home-manager/home.nix;
-        darwin = ./home-manager/darwin.nix;
-        linux = ./home-manager/linux.nix;
-        personal = ./home-manager/personal.nix;
+        default = ./profiles/base.nix;
+        darwin = ./profiles/darwin.nix;
+        linux = ./profiles/linux.nix;
+        personal = ./profiles/personal.nix;
       };
 
       homeConfigurations = {
@@ -29,9 +29,9 @@
             config.allowUnfree = true;
           };
           modules = [
-            ./home-manager/home.nix
-            ./home-manager/darwin.nix
-            ./home-manager/personal.nix
+            ./profiles/base.nix
+            ./profiles/darwin.nix
+            ./profiles/personal.nix
           ];
           extraSpecialArgs = {
             inherit username;

@@ -2,7 +2,7 @@
 
 {
   home.file = {
-    ".config/aerospace/aerospace.toml".source = ../aerospace/aerospace.toml;
+    ".config/aerospace/aerospace.toml".source = ../config/aerospace/aerospace.toml;
   };
 
   programs.zsh.initContent = lib.mkAfter ''
