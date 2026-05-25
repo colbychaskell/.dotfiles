@@ -32,3 +32,5 @@ clipboard-write = allow
 keybind = super+r=reload_config
 
 window-save-state = always
+
+command = tmux new-session -A -s main

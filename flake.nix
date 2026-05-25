@@ -12,7 +12,7 @@
   outputs =
     { nixpkgs, home-manager, ... }:
     let
-      username = "colbyhas";
+      username = "colbyhaskell";
     in
     {
       homeManagerModules = {
