@@ -33,4 +33,4 @@ keybind = super+r=reload_config
 
 window-save-state = always
 
-command = tmux new-session -A -s main
+command = /bin/zsh -l -c "tmux new-session -A -s main"
