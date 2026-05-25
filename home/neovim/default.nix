@@ -11,6 +11,7 @@
     marksman
     markdownlint-cli
     prettierd
+    imagemagick
   ];
 
   home.file.".config/nvim" = {
