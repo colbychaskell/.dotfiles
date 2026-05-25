@@ -8,7 +8,6 @@
     ../home/fzf
     ../home/starship
     ../home/tmux
-    ../home/ghostty
     ../home/ssh
   ];
 

@@ -3,6 +3,7 @@
 {
   imports = [
     ../home/aerospace
+    ../home/ghostty
   ];
 
   home.packages = with pkgs; [
