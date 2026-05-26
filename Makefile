@@ -15,37 +15,53 @@ EXPERIMENTAL ?= --extra-experimental-features "nix-command flakes"
 .PHONY: help
 help:
 	@echo "Available targets:"
-	@echo "  install-nix          - Install the Nix package manager"
-	@echo "  install-nix-darwin   - Install nix-darwin for the first time"
+	@echo "  apply                - Detect OS and apply either hm or darwin config"
+	@echo "  home-manager-switch  - Rebuild the home manager configuration"
 	@echo "  darwin-rebuild       - Rebuild the nix-darwin configuration"
 	@echo "  nix-gc               - Run Nix garbage collection"
 	@echo "  flake-update         - Update flake inputs"
 	@echo "  flake-check          - Check the flake for issues"
+	@echo "  install-nix          - Install the Nix package manager"
+	@echo "  install-nix-darwin   - Install nix-darwin for the first time"
 
+# Use nix-darwin on mac or home manager on linux
 ifeq ($(OS),darwin)
 .PHONY: apply
 apply: darwin-rebuild
 else
 .PHONY: apply
-apply:
-	nix run home-manager -- switch --flake ".#$(CONFIG)" -b backup
+apply: home-manager-switch
 endif
+
+.PHONY: home-manager-switch
+home-manager-switch:
+	@echo "Rebuilding home manager configuration..."
+	@nix run home-manager -- switch --flake ".#$(CONFIG)" -b backup
+	@echo "Home Manager switch complete."
 
 .PHONY: darwin-rebuild
 darwin-rebuild:
-	darwin-rebuild switch --flake "$(FLAKE)"
+	@echo "Rebuilding darwin configuration..."
+	@sudo darwin-rebuild switch --flake $(FLAKE)
+	@echo "Darwin rebuild complete."
 
 .PHONY: flake-update
 flake-update:
-	nix flake update
+	@echo "Updating flake inputs..."
+	@nix flake update
+	@echo "Flake update complete."
 
 .PHONY: flake-check
 flake-check:
-	nix flake check
+	@echo "Checking flake..."
+	@nix flake check
+	@echo "Flake check complete."
 
 .PHONY: nix-gc
 nix-gc:
-	nix-collect-garbage -d
+	@echo "Collecting Nix garbage..."
+	@sudo nix-collect-garbage -d
+	@echo "Garbage collection complete."
 
 .PHONY: install-nix
 install-nix:
