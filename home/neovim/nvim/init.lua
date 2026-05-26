@@ -168,10 +168,12 @@ pcall(require, "extra.config")
 --  To update plugins you can run
 --    :Lazy update
 --
-require("lazy").setup({
-  { import = "custom.plugins" },
-  { import = "extra.plugins", optional = true },
-}, {
+local specs = { { import = "custom.plugins" } }
+if package.searchpath("extra.plugins", package.path) then
+  table.insert(specs, { import = "extra.plugins" })
+end
+
+require("lazy").setup(specs, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
