@@ -20,12 +20,14 @@
   home.packages = with pkgs; [
     curl
     ripgrep
-    rustup
-    cargo-lambda
     autossh
     fd
     pandoc
     zig
+    cargo
+    rustc
+    rust-analyzer
+    cargo-lambda
   ];
 
   programs.home-manager.enable = true;

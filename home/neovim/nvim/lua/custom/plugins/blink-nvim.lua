@@ -62,6 +62,7 @@ return {
         auto_show_delay_ms = 500,
       },
       ghost_text = {
+        show_with_menu = true,
         enabled = true,
       },
     },
