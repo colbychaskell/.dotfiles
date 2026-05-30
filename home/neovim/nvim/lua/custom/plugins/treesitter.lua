@@ -1,11 +1,9 @@
-return { -- Highlight, edit, and navigate code
+return {
   "nvim-treesitter/nvim-treesitter",
   branch = "main",
   lazy = false,
   build = ":TSUpdate",
   config = function()
-    require("nvim-treesitter").setup()
-
     require("nvim-treesitter").install({
       "bash",
       "c",
@@ -24,7 +22,6 @@ return { -- Highlight, edit, and navigate code
     })
 
     vim.api.nvim_create_autocmd("FileType", {
-      pattern = "*",
       callback = function(ev)
         pcall(vim.treesitter.start, ev.buf)
       end,

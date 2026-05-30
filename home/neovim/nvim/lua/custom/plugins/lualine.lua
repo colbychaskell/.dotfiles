@@ -47,11 +47,6 @@ return {
         lualine_x = {
           Snacks.profiler.status(),
           {
-            require("lazy.status").updates,
-            cond = require("lazy.status").has_updates,
-            -- color = { fg = colors.green },
-          },
-          {
             function()
               return "  " .. require("dap").status()
             end,

@@ -130,7 +130,6 @@ return {
         cmd = { "clangd", "--background-index", "--clang-tidy" },
       },
       pyright = {},
-      prettier = {},
       ts_ls = {
         init_opions = {
           hostinfo = "neovim",
@@ -197,23 +196,26 @@ return {
       },
     }
 
-    -- LSP servers and formatters are installed via nix (home-manager).
-    -- Mason is kept for anything not yet packaged in nixpkgs.
     require("mason-tool-installer").setup({ ensure_installed = {} })
 
+    -- Set up Nix-managed servers directly.
+    for server_name, server in pairs(servers) do
+      server.capabilities =
+        vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+      vim.lsp.config[server_name] = server
+      vim.lsp.enable(server_name)
+    end
+
+    -- Fall back to Mason for any servers not already configured above.
     require("mason-lspconfig").setup({
       ensure_installed = {},
       automatic_installation = false,
       handlers = {
         function(server_name)
-          local server = servers[server_name] or {}
-
-          -- This handles overriding only values explicitly passed
-          -- by the server configuration above. Useful when disabling
-          -- certain features of an LSP (for example, turning off formatting for tsserver)
-          server.capabilities =
-            vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-          require("lspconfig")[server_name].setup(server)
+          if servers[server_name] then
+            return
+          end
+          require("lspconfig")[server_name].setup({ capabilities = capabilities })
         end,
       },
     })

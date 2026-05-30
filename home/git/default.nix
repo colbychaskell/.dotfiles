@@ -11,6 +11,7 @@
       "*.swp"
       ".direnv/"
       ".envrc"
+      ".claude/"
     ];
     settings = {
       user.name = "Colby Haskell";

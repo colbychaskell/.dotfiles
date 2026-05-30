@@ -14,7 +14,9 @@
       "nikitabobko/tap/aerospace"
       "obsidian"
       "raycast"
-      "zen-browser"
+      "zen"
+      # "slack"
+      # "spotify"
     ];
   };
 }
