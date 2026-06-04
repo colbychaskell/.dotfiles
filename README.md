@@ -14,17 +14,4 @@ Personal dotfiles and home-manager configuration managed with Nix flakes.
    make apply
    ```
 
-## Usage
-
-```sh
-make apply   # rebuild home-manager config
-make update  # update flake inputs
-```
-
-## macOS Casks
-
-GUI apps are managed manually via Homebrew. Install them with:
-
-```sh
-brew bundle --file=Brewfile
-```
+## Direnv project

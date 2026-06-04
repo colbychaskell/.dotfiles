@@ -9,6 +9,7 @@
     ../home/starship
     ../home/tmux
     ../home/ssh
+    ../home/direnv
   ];
 
   home.username = username;
@@ -23,11 +24,7 @@
     autossh
     fd
     pandoc
-    zig
-    cargo
-    rustc
-    rust-analyzer
-    cargo-lambda
+
   ];
 
   programs.home-manager.enable = true;

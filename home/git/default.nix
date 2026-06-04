@@ -10,7 +10,6 @@
     ignores = [
       "*.swp"
       ".direnv/"
-      ".envrc"
       ".claude/"
     ];
     settings = {
