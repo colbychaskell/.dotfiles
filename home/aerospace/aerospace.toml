@@ -210,3 +210,11 @@ automatically-unhide-macos-hidden-apps = true
     down = 'volume down'
     up = 'volume up'
     shift-down = ['volume set 0', 'mode main']
+
+[[on-window-detected]]
+    if.app-id = 'com.mitchellh.ghostty'
+    run = ['move-node-to-workspace W --focus-follows-window']
+
+[[on-window-detected]]
+    if.app-id = 'app.zen.browser'
+    run = ['move-node-to-workspace Z --focus-follows-window']
