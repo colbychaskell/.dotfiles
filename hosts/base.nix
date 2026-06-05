@@ -24,7 +24,7 @@
     autossh
     fd
     pandoc
-
+    awscli2
   ];
 
   programs.home-manager.enable = true;

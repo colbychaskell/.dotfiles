@@ -18,6 +18,7 @@
       ls = "ls --color=auto";
       la = "ls -lathr";
       dot = "cd $DOTFILES";
+      gh = "cd $GHREPOS";
       lastmod = ''find . -type f -not -path "*/\.*" -exec ls -lrt {} +'';
       "in" = ''cd $ZETTELKASTEN/0\ Inbox/'';
     };

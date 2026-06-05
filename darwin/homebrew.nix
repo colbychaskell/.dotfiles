@@ -15,8 +15,8 @@
       "obsidian"
       "raycast"
       "zen"
-      # "slack"
-      # "spotify"
+      "slack"
+      "spotify"
     ];
   };
 }

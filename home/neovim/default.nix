@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     neovim
+    ollama
     tree-sitter
     lua-language-server
     stylua
