@@ -17,6 +17,8 @@
       "zen"
       "slack"
       "spotify"
+      "whatsapp"
+      "minecraft"
     ];
   };
 }

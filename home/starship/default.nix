@@ -4,5 +4,106 @@
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
+    settings = {
+      format = "$directory$git_branch$git_status$character";
+      right_format = "$aws";
+      add_newline = false;
+      palette = "everforest";
+
+      aws = {
+        disabled = false;
+        symbol = " ";
+        format = "[$symbol($profile )]($style) ";
+        style = "bold orange";
+      };
+
+      os = {
+        disabled = false;
+        format = "[$symbol ]($style)";
+        style = "fg:grey2";
+        symbols = {
+          Windows = "  ";
+          Ubuntu = "  ";
+          SUSE = "";
+          Raspbian = "  ";
+          Mint = "  ";
+          Macos = "  ";
+          Manjaro = "";
+          Linux = "  ";
+          Gentoo = "  ";
+          Fedora = "  ";
+          Alpine = "";
+          Amazon = "";
+          Android = "";
+          Arch = "  ";
+          Artix = "  ";
+          CentOS = "";
+          Debian = "  ";
+          Redhat = "  ";
+          RedHatEnterprise = "  ";
+        };
+      };
+
+      username = {
+        show_always = true;
+        style_root = "fg:red";
+        style_user = "fg:blue";
+        format = "[$user]($style)";
+      };
+
+      hostname = {
+        ssh_only = false;
+        style = "fg:blue";
+        format = "[@$hostname]($style) ";
+      };
+
+      directory = {
+        style = "fg:orange";
+        read_only_style = "fg:orange";
+        truncation_length = 3;
+        truncation_symbol = "…/";
+        format = "[ $path]($style)[$read_only]($read_only_style) ";
+      };
+
+      git_branch = {
+        style = "fg:green";
+        symbol = " ";
+        format = "[$symbol$branch(:$remote_branch)]($style) ";
+      };
+
+      character = {
+        success_symbol = "[](bold green)";
+        error_symbol = "[](bold red)";
+      };
+
+      palettes.everforest = {
+        bg_dim = "#232a2e";
+        bg0 = "#2d353b";
+        bg1 = "#343f44";
+        bg2 = "#3d484d";
+        bg3 = "#475258";
+        bg4 = "#4f585e";
+        bg5 = "#56635f";
+        bg_visual = "#543a48";
+        bg_red = "#514045";
+        bg_green = "#425047";
+        bg_blue = "#3a515d";
+        bg_yellow = "#4d4c43";
+        fg = "#d3c6aa";
+        red = "#e67e80";
+        orange = "#e69875";
+        yellow = "#dbbc7f";
+        green = "#a7c080";
+        aqua = "#83c092";
+        blue = "#7fbbb3";
+        purple = "#d699b6";
+        grey0 = "#7a8478";
+        grey1 = "#859289";
+        grey2 = "#9da9a0";
+        statusline1 = "#a7c080";
+        statusline2 = "#d3c6aa";
+        statusline3 = "#e67e80";
+      };
+    };
   };
 }

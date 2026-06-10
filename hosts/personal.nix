@@ -6,8 +6,4 @@
   home.packages = with pkgs; [
     claude-code
   ];
-
-  home.file.".config/ghostty/auto-tmux".text = ''
-    command = /bin/zsh -l -c "tmux new-session -A -s main"
-  '';
 }

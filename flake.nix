@@ -35,6 +35,9 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+
+	    home-manager.backupFileExtension = "backup";
+
             home-manager.extraSpecialArgs = {
               inherit username;
               homeDirectory = "/Users/${username}";
@@ -83,7 +86,6 @@
 
       darwinModules = {
         default = ./darwin/default.nix;
-        ghostty = ./darwin/ghostty.nix;
         homebrew = ./darwin/homebrew.nix;
       };
 

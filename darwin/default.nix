@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./ghostty.nix
     ./homebrew.nix
   ];
   nixpkgs.hostPlatform = "aarch64-darwin";
