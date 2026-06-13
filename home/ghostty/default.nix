@@ -6,7 +6,7 @@
     enable = true;
 
     settings = {
-      font-family = "JetBrainsMono Nerd Font Mono";
+      font-family = "BlexMono Nerd Font";
       font-size = 11;
       theme = "Everforest Dark Hard";
 
