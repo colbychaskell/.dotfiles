@@ -157,6 +157,7 @@ return {
       },
       marksman = {},
       smithy_ls = {
+        cmd = { "smithy-language-server" },
         on_attach = bemol.lsp_config,
       },
       eslint = {
