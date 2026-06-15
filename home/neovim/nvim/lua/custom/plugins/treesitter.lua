@@ -19,6 +19,7 @@ return {
       "gitcommit",
       "git_config",
       "git_rebase",
+      "smithy",
     })
 
     vim.api.nvim_create_autocmd("FileType", {
