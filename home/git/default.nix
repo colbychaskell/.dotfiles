@@ -11,6 +11,7 @@
       "*.swp"
       ".direnv/"
       ".claude/"
+      "mise.toml"
     ];
     settings = {
       user.name = "Colby Haskell";
