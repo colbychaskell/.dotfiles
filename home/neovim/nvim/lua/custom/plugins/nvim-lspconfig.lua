@@ -213,7 +213,7 @@ return {
       automatic_installation = false,
       handlers = {
         function(server_name)
-          if servers[server_name] then
+          if servers[server_name] or server_name == "jdtls" then
             return
           end
           require("lspconfig")[server_name].setup({ capabilities = capabilities })
