@@ -38,8 +38,18 @@
     initContent = ''
       zstyle ':completion:*' menu select
 
-      # tmux auto-launch in SSH sessions only
       if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ]; then
+        # Link active ssh auth sock to static path
+        if [ -n "$SSH_AUTH_SOCK" ]; then
+          ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/ssh_auth_sock"
+        fi
+
+        # Update env var to point to static socket path
+	if [ -e "$HOME/.ssh/ssh_auth_sock" ]; then
+          export SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock"
+        fi
+
+        # Auto launch tmux on remote host
         tmux attach -t TMUX || tmux new -s TMUX
       fi
     '';
