@@ -7,7 +7,7 @@
 
     settings = {
       font-family = "BlexMono Nerd Font";
-      font-size = 11;
+      font-size = 12;
       theme = "Everforest Dark Hard";
 
       # Transparency effect
