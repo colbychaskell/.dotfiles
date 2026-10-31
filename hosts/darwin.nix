@@ -6,6 +6,17 @@
     ../home/ghostty
   ];
 
+  programs.opencode = {
+    enable = true;
+    settings = {
+      permission = {
+        edit = "allow";
+        bash = "allow";
+        webfetch = "allow";
+      };
+    };
+  };
+
   home.packages = with pkgs; [
     nerd-fonts.blex-mono
     nerd-fonts.jetbrains-mono
