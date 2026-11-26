@@ -224,6 +224,13 @@ return {
     -- Enable jdtls for Java (manually installed)
     -- vim.lsp.enable("jdtls")
 
+    -- Copilot LSP provides Next Edit Suggestions for sidekick.nvim.
+    -- It requires the `copilot-language-server` binary and a GitHub Copilot
+    -- subscription, so only enable it when the server is available.
+    if vim.fn.executable("copilot-language-server") == 1 then
+      vim.lsp.enable("copilot")
+    end
+
     -- Enable custom Kotlin LSP without Mason (manually installed)
     vim.lsp.config("kotlin_lsp", {
       cmd = { "kotlin-ls", "--stdio" },
